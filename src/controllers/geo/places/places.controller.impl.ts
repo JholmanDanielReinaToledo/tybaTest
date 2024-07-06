@@ -3,7 +3,14 @@ import { PlacesController } from "./places.controller";
 import { GeoService } from "../../../services/geo/geo.impl";
 import geoService from "../../../services/geo/geo";
 
+/**
+ * Implementation of the `PlacesController` interface that handles requests for finding places.
+ */
 class PlacesControllerImpl implements PlacesController {
+
+  /**
+   * Injected GeoService instance for fetching places data.
+   */
   private geoService: GeoService;
 
   constructor(geoService: GeoService) {

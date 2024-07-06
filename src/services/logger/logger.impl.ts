@@ -1,6 +1,17 @@
 import { LoggerService } from "./logger";
 
+/**
+ * A service class that implements the `LoggerService` interface and provides various logging methods.
+ */
 class LoggerServiceImpl implements LoggerService {
+
+  /**
+   * Formats a log message with timestamp, level, and the actual message.
+   *
+   * @param level The log level (e.g., 'LOG', 'INFO', 'WARN', 'ERROR').
+   * @param message The message to be logged.
+   * @returns The formatted log message string.
+   */
   private formatMessage(level: string, message: any): string {
     const timestamp = new Date().toISOString();
     return `[${timestamp}] [${level}] ${message}`;

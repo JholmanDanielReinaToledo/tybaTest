@@ -6,6 +6,7 @@ import { AuthService } from "../../../services/auth/auth";
 import authServiceImpl from "../../../services/auth/auth.impl";
 
 class UserRepositoryImpl implements UserRepository {
+  
   private userRepository: Repository<User>;
   private authService: AuthService;
 
@@ -36,7 +37,7 @@ class UserRepositoryImpl implements UserRepository {
       email: Equal(email),
     });
   }
-
+  
   async validateUser(email: string, password: string): Promise<User | null> {
     const user = await this.findByEmail(email);
     if (user && await this.authService.comparePasswords(password, user.password)) {

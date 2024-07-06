@@ -3,7 +3,12 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import { AuthService } from './auth';
 import { JWT_SECRET, SALT_ROUNDS } from '../../utils/constants';
 
+/**
+ * A service class that provides methods for authentication purposes.
+ * Implements the `AuthService` interface.
+ */
 export class AuthServiceImpl implements AuthService {
+  
   async hashPassword(password: string): Promise<string> {
     return await bcrypt.hash(password, SALT_ROUNDS);
   }
@@ -12,12 +17,12 @@ export class AuthServiceImpl implements AuthService {
     return await bcrypt.compare(plainPassword, hashedPassword);
   }
 
+  
   generateToken(payload: object): string {
     return jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
   }
 
   verifyToken(token: string): string | JwtPayload | null {
-    // TODO: Revisar si toma en cuenta si esta vencido
     try {
       return jwt.verify(token, JWT_SECRET);
     } catch (error) {
@@ -26,6 +31,6 @@ export class AuthServiceImpl implements AuthService {
   }
 }
 
-const authServiceImpl = new AuthServiceImpl()
+const authServiceImpl = new AuthServiceImpl();
 
 export default authServiceImpl;

@@ -9,8 +9,19 @@ import authServiceImpl from "../../../services/auth/auth.impl";
 
 class UserControllerImpl implements UserController {
 
+  /**
+   * Injected UserRepository instance for managing user data.
+   */
   private userRepository: UserRepository;
+
+  /**
+   * Injected LoggerService instance for logging purposes.
+   */
   private logger: LoggerService;
+
+  /**
+   * Injected AuthService instance for user authentication tasks.
+   */
   private authService: AuthService;
 
   constructor(
@@ -26,12 +37,14 @@ class UserControllerImpl implements UserController {
   async signUp (req: Request, res: Response): Promise<Response> {
     const { firstName, lastName, email, password }: SingUpUserParams = req.body;
     try {
-      const exist = await this.userRepository.findByEmail(email);
+      // Check for existing user with the same email
+      const existUser = await this.userRepository.findByEmail(email);
 
-      if (exist) {
+      if (existUser) {
         return res.status(400).json({ message: 'User with this email already exists' });
       }
 
+      // Create a new user and save it to the database
       const user = await this.userRepository.singUp({ firstName, lastName, email, password });
       this.logger.log(`User Created ${user}`);
       return res.status(201).json(user);
@@ -45,14 +58,17 @@ class UserControllerImpl implements UserController {
     const { email, password } = req.body;
 
     try {
+      // Validate user credentials (email and password)
       const user = await this.userRepository.validateUser(email, password);
       if (!user) {
         return res.status(401).json({ message: 'Invalid email or password' });
       }
-
+      
+      // Generate a JWT token based on user information
       const token = this.authService.generateToken({ id: user.id, email: user.email });
       return res.status(200).json({ token });
     } catch (error) {
+      this.logger.error(error);
       return res.status(500).json({ message: 'Error during login' });
     }
   }

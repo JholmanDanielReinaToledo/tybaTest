@@ -7,18 +7,21 @@ import { LoggerService } from "../logger/logger";
 import loggerServiceImpl from "../logger/logger.impl";
 
 class GeoServiceImpl implements GeoService {
+  /**
+   * An injected logger service for logging purposes.
+   */
   private logger: LoggerService;
 
   constructor(logger: LoggerService) {
     this.logger = logger;
   }
 
+  
   async getRestaurantsByCoordinates(lat: number, lon: number): Promise<Place[]> {
     const url = `${URL_FOURSQUARE}search?ll=${lat}%2C${lon}&categories=${DINING_AND_DRINKING_FOURSQUARE}`;
     return fetch(url, OPTIONS_FOURSQUARE)
       .then(res => res.json())
       .then(json => {
-        console.log(json)
         if (isArray(json?.results)) {
           const places = json?.results;
           return map(
@@ -38,6 +41,7 @@ class GeoServiceImpl implements GeoService {
       });
   }
 
+  
   async getRestaurantsByLocationName(location: string): Promise<Place[]> {
     const url = `${URL_FOURSQUARE}search?query=${location}&categories=${DINING_AND_DRINKING_FOURSQUARE}`;
     return fetch(url, OPTIONS_FOURSQUARE)
