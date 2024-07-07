@@ -32,7 +32,7 @@ export const JWT_SECRET = process.env.JWT_SECRET || '';
 /**
  * Number of salt rounds used for password hashing (Retrieved from environment variable, defaults to 10).
  */
-export const SALT_ROUNDS = process.env.SALT_ROUNDS || 10;
+export const SALT_ROUNDS = process.env.SALT_ROUNDS || '10';
 
 /**
  * Database host address (Retrieved from environment variable).

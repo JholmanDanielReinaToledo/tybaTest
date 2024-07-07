@@ -10,11 +10,11 @@ class LogRepositoryImpl implements LogRepository {
     this.repository = repository;
   }
 
-  log(message: string): void {
+  async log(message: string): Promise<void> {
     const log = new Log()
     log.message = message;
 
-    this.repository.save(log);
+    await this.repository.save(log);
   }
 
   getAllLogs(): Promise<Log[]> {

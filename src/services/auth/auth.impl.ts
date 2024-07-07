@@ -10,7 +10,8 @@ import { JWT_SECRET, SALT_ROUNDS } from '../../utils/constants';
 export class AuthServiceImpl implements AuthService {
   
   async hashPassword(password: string): Promise<string> {
-    return await bcrypt.hash(password, SALT_ROUNDS);
+    const saltRounds = parseInt(SALT_ROUNDS, 10);
+    return await bcrypt.hash(password, saltRounds);
   }
 
   async comparePasswords(plainPassword: string, hashedPassword: string): Promise<boolean> {
