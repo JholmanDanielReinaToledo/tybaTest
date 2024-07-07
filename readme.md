@@ -35,5 +35,7 @@ Logs de backend.
 
 ## Arquitectura de la API
 
-![image](https://github.com/JholmanDanielReinaToledo/tybaTest/assets/84155110/26e326f2-0748-4c75-8c4c-9f2d8c98571d)
+![image](https://github.com/JholmanDanielReinaToledo/tybaTest/assets/84155110/ce829b5a-b44a-400f-9dfc-60073e680558)
+
+
 
