@@ -2,7 +2,8 @@
 
 ## Introducción
 
-Este proyecto es un backend desarrollado en TypeScript utilizando Express, Node.js, TypeORM y Joi. Proporciona una API para Tyba.
+Este proyecto es un backend desarrollado en TypeScript utilizando Express, Node.js, TypeORM y Joi. Se conecta a una base de datos en Postgres.
+
 Implementa:
 - manejo de usuarios.
 - Peticiones de lugares con FOURSQUARE.
