@@ -16,7 +16,6 @@ export class AuthServiceImpl implements AuthService {
   async comparePasswords(plainPassword: string, hashedPassword: string): Promise<boolean> {
     return await bcrypt.compare(plainPassword, hashedPassword);
   }
-
   
   generateToken(payload: object): string {
     return jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });

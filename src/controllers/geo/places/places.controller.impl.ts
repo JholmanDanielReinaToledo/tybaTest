@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { PlacesController } from "./places.controller";
-import { GeoService } from "../../../services/geo/geo.impl";
-import geoService from "../../../services/geo/geo";
+import { GeoService } from "../../../services/geo/geo";
+import geoService from "../../../services/geo/geo.impl";
 
 /**
  * Implementation of the `PlacesController` interface that handles requests for finding places.
