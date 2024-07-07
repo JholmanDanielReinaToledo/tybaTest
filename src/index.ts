@@ -5,10 +5,12 @@ import appDataSource from './dataSource/dataSource';
 import loggerServiceImpl from './services/logger/logger.impl';
 import indexRoutes from "./routes/index.routes";
 import { SERVER_PORT } from "./utils/constants";
+import { loggingMiddleware } from "./middlewares/logger";
 
 const app = express();
 
 app.use(express.json());
+app.use(loggingMiddleware);
 
 app.get('/status', (_req: Request, res: Response) => {
   res.status(200).send('Hello, i\'m running!');

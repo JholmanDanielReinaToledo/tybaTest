@@ -1,9 +1,17 @@
+import { LogRepository } from "../../repositories/log/log.repository";
+import logRepository from "../../repositories/log/log.repository.impl";
 import { LoggerService } from "./logger";
 
 /**
  * A service class that implements the `LoggerService` interface and provides various logging methods.
  */
 class LoggerServiceImpl implements LoggerService {
+
+  private logRepository: LogRepository;
+
+  constructor(logRepository: LogRepository) {
+    this.logRepository = logRepository;
+  }
 
   /**
    * Formats a log message with timestamp, level, and the actual message.
@@ -14,7 +22,11 @@ class LoggerServiceImpl implements LoggerService {
    */
   private formatMessage(level: string, message: any): string {
     const timestamp = new Date().toISOString();
-    return `[${timestamp}] [${level}] ${message}`;
+    const messageFormated = `[${timestamp}] [${level}] ${message}`;
+
+    this.logRepository.log(messageFormated);
+
+    return messageFormated;
   }
 
   log(message: any): void {
@@ -34,6 +46,8 @@ class LoggerServiceImpl implements LoggerService {
   }
 }
 
-const loggerServiceImpl = new LoggerServiceImpl(); 
+const loggerServiceImpl = new LoggerServiceImpl(
+  logRepository,
+); 
 
 export default loggerServiceImpl;

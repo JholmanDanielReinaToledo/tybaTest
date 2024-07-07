@@ -18,6 +18,7 @@ export class GeoServiceImpl implements GeoService {
 
   
   async getRestaurantsByCoordinates(lat: number, lon: number): Promise<Place[]> {
+    this.logger.log(`getRestaurantsByCoordinates: {lat: ${lat}, lon: ${lon}}`);
     const url = `${URL_FOURSQUARE}search?ll=${lat}%2C${lon}&categories=${DINING_AND_DRINKING_FOURSQUARE}`;
     return fetch(url, OPTIONS_FOURSQUARE)
       .then(res => res.json())
@@ -43,6 +44,7 @@ export class GeoServiceImpl implements GeoService {
 
   
   async getRestaurantsByLocationName(location: string): Promise<Place[]> {
+    this.logger.log(`getRestaurantsByLocationName: {location: ${location}}`);
     const url = `${URL_FOURSQUARE}search?query=${location}&categories=${DINING_AND_DRINKING_FOURSQUARE}`;
     return fetch(url, OPTIONS_FOURSQUARE)
       .then(res => res.json())

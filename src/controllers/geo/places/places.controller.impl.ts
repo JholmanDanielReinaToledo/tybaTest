@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { PlacesController } from "./places.controller";
 import { GeoService } from "../../../services/geo/geo";
 import geoService from "../../../services/geo/geo.impl";
+import { LoggerService } from "../../../services/logger/logger";
+import loggerServiceImpl from "../../../services/logger/logger.impl";
 
 /**
  * Implementation of the `PlacesController` interface that handles requests for finding places.
@@ -13,7 +15,9 @@ class PlacesControllerImpl implements PlacesController {
    */
   private geoService: GeoService;
 
-  constructor(geoService: GeoService) {
+  constructor(
+    geoService: GeoService,
+  ) {
     this.geoService = geoService;
   }
 
@@ -24,7 +28,7 @@ class PlacesControllerImpl implements PlacesController {
   }
 
   async getPlacesByLocation(req: Request, res: Response): Promise<Response> {
-    const location = req.params.location;
+    const { location } = req.body;
     const places = await this.geoService.getRestaurantsByLocationName(location);
     return res.status(200).json({ places });
   }

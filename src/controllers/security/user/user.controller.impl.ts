@@ -61,11 +61,13 @@ class UserControllerImpl implements UserController {
       // Validate user credentials (email and password)
       const user = await this.userRepository.validateUser(email, password);
       if (!user) {
+        this.logger.warn(`Invalid email or password: ${email}`);
         return res.status(401).json({ message: 'Invalid email or password' });
       }
       
       // Generate a JWT token based on user information
       const token = this.authService.generateToken({ id: user.id, email: user.email });
+      this.logger.warn(`login: ${email}`);
       return res.status(200).json({ token });
     } catch (error) {
       this.logger.error(error);
